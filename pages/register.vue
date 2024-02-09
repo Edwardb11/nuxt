@@ -1,18 +1,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import {createUserWithEmailAndPassword} from "firebase/auth"
-
 const email = ref('');
 const password = ref('');
-const {$auth}=useNuxtApp()
 
-
+const {register}= useFirebaseAuth()
 
 const handleSubmit =async () => {
     try {
-     const res=   await createUserWithEmailAndPassword($auth,email.value, password.value);
-     console.log(res)
+        await register(email.value, password.value);
     } catch (error) {
         console.error(error);
     }
