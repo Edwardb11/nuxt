@@ -1,25 +1,42 @@
-
 <script setup lang="ts">
-import { ref } from 'vue';
-const email = ref('');
-const password = ref('');
+import { z } from 'zod'
+import type { FormSubmitEvent } from '#ui/types'
+const { register } = useFirebaseAuth()
+const schema = z.object({
+    email: z.string().email('Invalid email'),
+    password: z.string().min(6, 'Must be at least 6 characters')
+})
 
-const {register}= useFirebaseAuth()
+type Schema = z.output<typeof schema>
 
-const handleSubmit =async () => {
+const state = reactive({
+    email: undefined,
+    password: undefined
+})
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
     try {
-        await register(email.value, password.value);
+        await register(event.data.email, event.data.password
+        )
     } catch (error) {
-        console.error(error);
+        console.error(error)
     }
-};
+}
 </script>
 
 <template>
-    <h1>Register page</h1>
-    <form @submit.prevent="handleSubmit">
-        <input label="Email" type="email" v-model="email" />
-        <input label="Password" type="password" v-model="password" />
-        <button type="submit">Registro</button>
-    </form>
+    <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+        <UFormGroup label="Email" name="email">
+            <UInput v-model="state.email" />
+        </UFormGroup>
+
+        <UFormGroup label="Password" name="password">
+            <UInput v-model="state.password" type="password" />
+        </UFormGroup>
+
+        <UButton type="submit">
+            Submit
+        </UButton>
+    </UForm>
 </template>
+
