@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 export const useFirebaseAuth = () => {
@@ -32,8 +33,14 @@ export const useFirebaseAuth = () => {
       console.log(error);
     }
   };
+
+  const logout = async () => {
+    await signOut($auth);
+    await navigateTo("/");
+  };
   return {
     register,
     login,
+    logout,
   };
 };
