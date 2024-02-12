@@ -1,11 +1,13 @@
 <template>
   <div>
-    <nav>
-      <ul>
-        <li><nuxt-link to="/">Home</nuxt-link></li>
-        <li v-if="user"><nuxt-link to="/protected">Protected</nuxt-link></li>
-        <li><nuxt-link to="/auth">Auth</nuxt-link></li>
-        <li v-if="user"><button @click="logout">Salir</button></li>
+    <nav class="bg-gray-800 text-white py-4">
+      <ul class="flex justify-between items-center max-w-4xl mx-auto">
+        <li><nuxt-link to="/" class="hover:text-gray-300">Home</nuxt-link></li>
+        <li v-if="user"><nuxt-link to="/protected" class="hover:text-gray-300">Protected</nuxt-link></li>
+        <li><nuxt-link to="/auth" class="hover:text-gray-300">Auth</nuxt-link></li>
+        <li v-if="user">
+          <button @click="logout" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md">Salir</button>
+        </li>
       </ul>
     </nav>
     <NuxtPage />
