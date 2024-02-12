@@ -2,6 +2,8 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 const { register } = useFirebaseAuth()
+const toast = useToast()
+
 const schema = z.object({
     email: z.string().email('Invalid email'),
     password: z.string().min(6, 'Must be at least 6 characters')
@@ -18,6 +20,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     try {
         await register(event.data.email, event.data.password
         )
+        toast.add({title:"Redirecting...", description:"You are being redirected to the dashboard", callback: () => navigateTo('/admin')})
+
     } catch (error) {
         console.error(error)
     }
