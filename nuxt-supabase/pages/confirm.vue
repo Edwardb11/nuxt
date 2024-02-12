@@ -1,6 +1,6 @@
 <template>
     <div>
-    Hello
+    Esperando que confirme su email
     </div>
   </template>
   
