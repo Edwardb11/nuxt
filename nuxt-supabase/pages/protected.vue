@@ -1,6 +1,6 @@
 <template>
     <div>
-    Hello
+    Pagina Protected
     </div>
   </template>
   
