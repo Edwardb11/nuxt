@@ -1,6 +1,6 @@
 <template>
     <div>
-    Esperando que confirme su email
+    Waiting for confirmation
     </div>
   </template>
   
